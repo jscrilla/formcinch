@@ -23,7 +23,8 @@ class FormCinchServiceProvider extends ServiceProvider
 	    $this->publishes([
 		    __DIR__.'/views' => resource_path('views/vendor/formcinch'),
             __DIR__.'/public' => public_path('vendor/formcinch'),
-        ], 'public');
+            __DIR__.'/config' => config_path(),
+        ], 'formcinch');
 
 	    // use the vendor configuration file as fallback
 	    $this->mergeConfigFrom(
