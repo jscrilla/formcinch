@@ -1,0 +1,48 @@
+{
+    "name": "ng-media/formcinch",
+    "description": "A form GUI for making simple forms in Laravel 5",
+    "keywords": ["forms"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jason Frye",
+            "email": "jfrye@news-gazette.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "laravel/framework": "5.5.*|5.6.*"
+    },
+    "require-dev": {
+        "filp/whoops": "^2.0",
+        "fzaninotto/faker": "^1.4",
+        "laracasts/generators": "dev-master",
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "^7.0"
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ngmedia\\FormCinch\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Ngmedia\\FormCinch\\FormCinchServiceProvider"
+            ]
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php",
+            "tests/CreatesApplication.php"
+        ]
+    },
+    "minimum-stability": "dev"
+}
