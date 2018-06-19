@@ -6,8 +6,9 @@ function textFieldHtml(name)
 {
     html = '<div class="input-group mb-3">';
     html += addRequiredCheckbox(name);
-    html += '<input type="text" class="form-control" aria-label="Text input with checkbox" name="'+name+'_text" placeholder="'+name+'" readonly>\n' +
-            '</div>';
+    html += '<input type="text" class="form-control" aria-label="Text input with checkbox" name="'+name+'_text" placeholder="'+name+'" readonly>\n'
+    html += addHandle();
+    html += '</div>';
 
     setField(html);
 }
@@ -18,11 +19,16 @@ function textFieldHtml(name)
  */
 function textAreaFieldHtml(name)
 {
-    html = '<label class="control-label ignore">'+name+'</label>';
+    html = '<div class="input-group mb-3">';
 
-    html += '<textarea class="form-control ignore" name="'+name+'_textarea"></textarea>';
+    // html += '<label class="control-label ignore">'+name+'</label>';
 
     html += addRequiredCheckbox(name);
+
+    html += '<textarea class="form-control inserted-textarea" name="'+name+'_textarea" rows="2" readonly placeholder="'+name+'"></textarea>';
+
+    html += addHandle();
+    html += '</div>';
 
     setField(html);
 }
@@ -33,24 +39,49 @@ function textAreaFieldHtml(name)
  */
 function selectListHtml(name)
 {
-    html = '<label class="control-label">'+name+'</label>';
+    html = '<div class="input-group mb-3">';
+
+    html += addRequiredCheckbox(name);
 
     html += '<input class="form-control" name="'+name+'_select" value="'+name+'">';
+
+    html += addHandle();
 
     html += '<div class="input-group col-md-offset-1">';
     html += '<input type="text" name="'+name+'_select_option[]" value="" class="form-control" placeholder="Option value">\n' +
         '                            <span class="input-group-btn">\n' +
-    '                                    <button class="btn btn-default" type="button" onclick="addOption(this)"><i class="fa fa-plus" aria-hidden="true"></i></button>\n' +
+    '                                    <button class="btn btn-primary" type="button" onclick="addOption(this)"><i class="fa fa-plus" aria-hidden="true"></i></button>\n' +
     '                                </span>';
     html += '</div>';
 
     html += '<div class="select-anchor" data-name="'+name+'"></div>';
 
-    html += addRequiredCheckbox(name);
+    html += '</div>';
+
 
     setField(html);
 
     $('#selector').data('name', name);
+}
+
+/**
+ * Add an option to a select list
+ * @param t
+ */
+function addOption(t)
+{
+    let name =  $(t).parent().parent().next().data('name');
+    html = '<div class="input-group col-md-offset-1">';
+    html += '<input type="text" name="'+name+'_select_option[]" value="" class="form-control" placeholder="Option value">' +
+        '     <span class="input-group-btn">' +
+        '       <button class="btn btn-primary" type="button" onclick="addOption(this)"><i class="fa fa-plus" aria-hidden="true"></i></button>' +
+        '         </span>';
+    html += '</div>';
+    html += '<div class="clearfix"></div>';
+    $(t).parent().parent().after(html);
+
+    console.log($(t).find('input'));
+    $(t).find('input').focus()
 }
 
 /**
@@ -84,23 +115,20 @@ function addRequiredCheckbox(name)
 }
 
 /**
- * Add an option to a select list
- * @param t
+ * Add the required checkbox to the text,
+ * textarea, and select list fields
+ * @param name
+ * @returns {string|*}
  */
-function addOption(t)
+function addHandle()
 {
-    let name =  $(t).parent().parent().next().data('name');
-    html = '<div class="input-group col-md-offset-1">';
-    html += '<input type="text" name="'+name+'_select_option[]" value="" class="form-control" placeholder="Option value">' +
-        '     <span class="input-group-btn">' +
-        '       <button class="btn btn-primary" type="button" onclick="addOption(this)"><i class="fa fa-plus" aria-hidden="true"></i></button>' +
-    '         </span>';
-    html += '</div>';
+    html = '  <div class="input-group-append handle" title="Move the input in the form">\n' +
+        '    <div class="input-group-text">\n' +
+        '      <span class=""><i class="fas fa-ellipsis-v"></i></span>\n' +
+        '    </div>\n' +
+        '  </div>';
 
-    $(t).parent().parent().after(html);
-
-    let input = $('input[name='+name+'_select_option]').last();
-    input.focus();
+    return html;
 }
 
 /**
@@ -134,8 +162,6 @@ function selected()
                 icon: "error"
             });
     }
-
-    return false;
 }
 
 /**
@@ -161,7 +187,8 @@ $(".all-fields").sortable({
     scroll: false,
     placeholder: "sortable-placeholder",
     cursor: "move",
-    cancel: 'label'
+    cancel: "label",
+    handle: ".handle"
 });
 
 /**

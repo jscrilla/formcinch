@@ -4,11 +4,14 @@
 }
 
 .all-fields {
-    cursor: -webkit-grab;
     min-height: 125px;
     background: #daddde;
     border-radius: 6px;
     padding: 20px;
+}
+
+.handle {
+    cursor: -webkit-grab;
 }
 
 .required:after {
