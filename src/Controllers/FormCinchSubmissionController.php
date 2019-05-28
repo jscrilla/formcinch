@@ -38,7 +38,11 @@ class FormCinchSubmissionController extends Controller
 	protected function sendMailIfChecked($form, $submission)
 	{
 		if($form->emails){
-			return Mail::to($form->emails)->send(new FormCinchSubmissionReceived($submission));
+			$emails = explode(',', $form->emails);
+
+			foreach($emails as $email){
+				Mail::to($form->emails)->send(new FormCinchSubmissionReceived($submission));
+			}
 		}
 
 		return false;
