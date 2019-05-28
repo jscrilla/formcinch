@@ -39,7 +39,7 @@ class FormCinchSubmissionController extends Controller
 	{
 		if($form->emails){
 			foreach($form->emails as $email){
-				Mail::to($email)->send(new FormCinchSubmissionReceived($submission));
+				Mail::to(trim($email))->send(new FormCinchSubmissionReceived($submission));
 			}
 		}
 
