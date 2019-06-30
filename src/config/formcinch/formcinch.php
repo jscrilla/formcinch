@@ -12,8 +12,8 @@ return [
 	// should be prefixed with this path
 	'form_admin_prefix' => '/form-cinch',
 
-    // The redirect to be used after create a form
-    'redirect_path' => '/form-cinch',
+        // The redirect to be used after create a form
+        'redirect_path' => '/form-cinch',
 
 	//Simple access auth
 	'use_simple_access' => true,
