@@ -11,7 +11,7 @@ class FormCinchAdminController extends Controller
     public function index()
     {
     	try{
-		    $forms = FormCinch::all();
+		$forms = FormCinch::all();
 	    } catch(\Exception $e) {
     		$forms = 'not setup';
 	    }
